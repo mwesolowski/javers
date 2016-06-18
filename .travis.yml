@@ -21,4 +21,10 @@ script:
   - "./gradlew check"
   - "./gradlew integrationTest"
 
+deploy:
+  provider: script
+  script: /bin/sh deploy.sh
+  on:
+    branch: travis-deployment-2
+
 sudo: false
