@@ -1,24 +1,26 @@
 language: java
-
 jdk:
-  - oraclejdk8
-
+- oraclejdk8
 addons:
   apt:
     sources:
-      - mongodb-upstart
-      - mongodb-3.2-precise
+    - mongodb-upstart
+    - mongodb-3.2-precise
     packages:
-      - mongodb-org-server
-      - mongodb-org-shell
-
+    - mongodb-org-server
+    - mongodb-org-shell
 before_script:
-  - sleep 15 #mongo may not be responded directly
-  - psql -c 'create database travis_ci_test;' -U postgres
-  - mysql -e 'create database travis_ci_test;' -u root
-
+- sleep 15
+- psql -c 'create database travis_ci_test;' -U postgres
+- mysql -e 'create database travis_ci_test;' -u root
 script:
-  - "./gradlew check"
-  - "./gradlew integrationTest"
-
+- "./gradlew check"
+- "./gradlew integrationTest"
 sudo: false
+deploy:
+  provider: bintray
+  file: bintray.json
+  name: test-app
+  key:
+    secure: Yo33vnep/0dFX1+f/7RplGfTtUomZC7f8+4xtxDwp5fv3kl1aKO+d6nrXWa5h/TdFpNWPCO7hjqKNFgSsmn6D3MHImZCYTDBRRgDnuXs+A24+vCMtNJ5f7NG8Fada4t+cKnOKsUfMac75LZ0O+H85HnHSYjidU8j5JPldvHpkciCWw9D1Gf00ZAlWKS74DrTjsqlvv0wesf2SAym+BgJY6ni10yBuEuvWR8eOeH7u0vObGuZAV3uNaU0X1bf93PAmaPhG4y0IJLjaWxG2vsTmauvLtK2xhjW0tVoupguUwvsDQGg5Xf7zPlf5vlkxXMEjF30MjEbjQcgfXmb9s61j7n2c+Afe7DRpaUyEFsWWi6gmqhZt/N8fwfxMKVm1XSEvjynXzSZdzIcIuBg6ye4DxxgLvFADVXczTs0AC3GJmKrT/3wUALPvgsr7Ke7kfT7Myc/jw8HOSrYudYY26ps4t59XNwni1k4ZKIgN868B2f3VrQcg3hAlIcwITr05xibTW55WHrM5/T8tv5e6+3T14pwgq/mcGRBRvblP07Fa/CsZr6M0rksSA8ezivUBz5xGScpKvQw1aWon22wP6TUKLegx3A1lE7Z1r/71i1znpoisskPCr2ME7qeGrUU1mPsla8oeEM+esMtGDYgzHL6jYh27OGf/ZYVyTFnPNci0Qg=
+  dry-run: true

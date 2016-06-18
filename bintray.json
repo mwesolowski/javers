@@ -1,0 +1,13 @@
+{
+  "package": {
+    "name": "javers",
+    "repo": "maven"
+  },
+  "version": {
+    "name": "travis-bintray-test-001"
+  },
+  "files": [
+    {"includePattern": "(.*)/build/libs/(.*\\.jar)", "uploadPattern": "$1/$2"},
+    {"includePattern": "(.*)/build/distributions/(.*)", "uploadPattern": "$1/$2"}
+  ]
+}
