@@ -23,7 +23,7 @@ script:
 
 deploy:
   provider: script
-  script: /bin/sh deploy.sh
+  script: "./gradlew bintray"
   on:
     tags: true
     all_branches: true
