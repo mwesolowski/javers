@@ -22,9 +22,9 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
+import java.time.temporal.ChronoUnit
 
 import static groovyx.gpars.GParsPool.withPool
-import static org.javers.core.JaversBuilder.javers
 import static org.javers.core.JaversTestBuilder.javersTestAssembly
 import static org.javers.core.metamodel.object.SnapshotType.INITIAL
 import static org.javers.core.metamodel.object.SnapshotType.UPDATE
@@ -95,7 +95,7 @@ class JaversRepositoryE2ETest extends Specification {
         then:
         println 'commitDate: ' + snapshot.commitMetadata.commitDate
         println 'commitDateInstant: ' + snapshot.commitMetadata.commitDateInstant
-        snapshot.commitMetadata.commitDate == now.toLocalDateTime()
+        ChronoUnit.MILLIS.between(snapshot.commitMetadata.commitDate, now.toLocalDateTime()) == 0
         snapshot.commitMetadata.commitDateInstant == now.toInstant()
         snapshot.commitMetadata.author == 'author'
     }
